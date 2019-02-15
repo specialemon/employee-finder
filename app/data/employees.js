@@ -1,7 +1,7 @@
 const employeeData = [
     {
         "name": "Ahmed",
-        "photo": "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo": "https://i1.sndcdn.com/artworks-000179621054-n5eeg3-t500x500.jpg",
         "scores": [
             5,
             1,

@@ -1,5 +1,6 @@
 const compare = function (user, server) {
     let smallestDiff = 9999;
+    let result;
     server.forEach(employee => {
         let currentDiff = 0;
         for (let i = 0; i < employee.scores.length; i++) {
@@ -21,8 +22,8 @@ $(function () {
         const userResult = {
             "name": $("#userName").val().trim(),
             "photo": $("#userImg").val().trim(),
-            "scores": [
-                $("#select1").val()[0],
+            "scores": [                    
+                $("#select1").val()[0], 
                 $("#select2").val()[0],
                 $("#select3").val()[0],
                 $("#select4").val()[0],
@@ -46,7 +47,7 @@ $(function () {
                 const fetchedResult = compare(userResult, response);
                 $("#resultName").text(fetchedResult.name);
                 $("#imageContainer").empty();
-                $("#imageContainer").append(`<img src="${fetchedResult.photo}">`);
+                $("#imageContainer").append(`<img class="w-50" src="${fetchedResult.photo}">`);
 
                 $.ajax({
                     url: "/api/employees",
@@ -59,9 +60,13 @@ $(function () {
                         console.log("Failed to push the data to server");
                     }
                 })
+            },
+            error: function(){
+                console.log("failed to fetch data from the server");
             }
         })
     }
 
     $("#submitButton").click(surveyResult);
 });
+
