@@ -47,7 +47,7 @@ $(function () {
                 const fetchedResult = compare(userResult, response);
                 $("#resultName").text(fetchedResult.name);
                 $("#imageContainer").empty();
-                $("#imageContainer").append(`<img class="w-50" src="${fetchedResult.photo}">`);
+                $("#imageContainer").append(`<img class="w-75" src="${fetchedResult.photo}">`);
 
                 $.ajax({
                     url: "/api/employees",
