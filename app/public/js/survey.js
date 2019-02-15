@@ -15,49 +15,54 @@ const compare = function (user, server) {
     return result;
 }
 
+$(function () {
+    const surveyResult = function (event) {
+        event.preventDefault();
+        console.log("123");
+        const userResult = {
+            "name": $("#userName").val().trim(),
+            "photo": $("#userImg").val().trim(),
+            "scores": [
+                $("#select1").val()[0],
+                $("#select2").val()[0],
+                $("#select3").val()[0],
+                $("#select4").val()[0],
+                $("#select5").val()[0],
+                $("#select6").val()[0],
+                $("#select7").val()[0],
+                $("#select8").val()[0],
+                $("#select9").val()[0],
+                $("#select10").val()[0],
+            ]
+        }
 
-const surveyResult = function (event) {
-    event.preventDefault();
-    const userResult = {
-        "name": $("#userName").val().trim(),
-        "photo": $("#userImg").val().trim(),
-        "scores": [
-            $("#select1").val(),
-            $("#select2").val(),
-            $("#select3").val(),
-            $("#select4").val(),
-            $("#select5").val(),
-            $("#select6").val(),
-            $("#select7").val(),
-            $("#select8").val(),
-            $("#select9").val(),
-            $("#select10").val(),
-        ]
+        console.log(userResult);
+
+
+        $.ajax({
+            url: "/api/employees",
+            method: "GET",
+            success: function (response) {
+                console.log(response);
+                const fetchedResult = response[compare(userResult, response)];
+                console.log(fetchedResult);
+                $("#resultName").text(fetchedResult.name);
+                $("#imageContainer").html(`<img src="${fetchedResult.photo}`);
+
+                $.ajax({
+                    url: "/api/employees",
+                    method: "POST",
+                    data: userResult,
+                    success: function (response) {
+                        console.log(`Successfully push the following to server: ${resoibse}`);
+                    },
+                    error: function () {
+                        console.log("Failed to push the data to server");
+                    }
+                })
+            }
+        })
     }
 
-
-    $.ajax({
-        url: "/api/employees",
-        method: "GET",
-        success: function (response) {
-            const fetchedResult = response[compare(userResult, response)];
-            $("#resultName").text(fetchedResult.name);
-            $("#imageContainer").html(`<img src="${fetchedResult.photo}`);
-
-            $.ajax({
-                url: "/api/employees",
-                method: "POST",
-                data: userResult,
-                success: function (response) {
-                    console.log(`Successfully push the following to server: ${resoibse}`);
-                },
-                error: function () {
-                    console.log("Failed to push the data to server");
-                }
-            })
-        }
-    })
-}
-
-$("#submitButton").click(surveyResult);
-
+    $("#submitButton").click(surveyResult);
+});
