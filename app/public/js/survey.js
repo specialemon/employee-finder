@@ -35,25 +35,26 @@ const surveyResult = function (event) {
         ]
     }
 
-    $.ajax({
-        url: "localhost:8080/api/employees",
-        method: "POST",
-        data: userResult,
-        success: function (response) {
-            console.log(`Successfully push the following to server: ${resoibse}`);
-        },
-        error: function () {
-            console.log("Failed to push the data to server");
-        }
-    })
 
     $.ajax({
-        url: "localhost:8080/api/employees",
+        url: "/api/employees",
         method: "GET",
         success: function (response) {
             const fetchedResult = response[compare(userResult, response)];
             $("#resultName").text(fetchedResult.name);
             $("#imageContainer").html(`<img src="${fetchedResult.photo}`);
+
+            $.ajax({
+                url: "/api/employees",
+                method: "POST",
+                data: userResult,
+                success: function (response) {
+                    console.log(`Successfully push the following to server: ${resoibse}`);
+                },
+                error: function () {
+                    console.log("Failed to push the data to server");
+                }
+            })
         }
     })
 }
