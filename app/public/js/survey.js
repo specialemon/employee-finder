@@ -1,5 +1,4 @@
 const compare = function (user, server) {
-    let result = 0;
     let smallestDiff = 9999;
     server.forEach(employee => {
         let currentDiff = 0;
@@ -43,18 +42,18 @@ $(function () {
             url: "/api/employees",
             method: "GET",
             success: function (response) {
-                console.log(response);
-                const fetchedResult = response[compare(userResult, response)];
-                console.log(fetchedResult);
+                console.log(compare(userResult, response));
+                const fetchedResult = compare(userResult, response);
                 $("#resultName").text(fetchedResult.name);
-                $("#imageContainer").html(`<img src="${fetchedResult.photo}`);
+                $("#imageContainer").empty();
+                $("#imageContainer").append(`<img src="${fetchedResult.photo}">`);
 
                 $.ajax({
                     url: "/api/employees",
                     method: "POST",
                     data: userResult,
                     success: function (response) {
-                        console.log(`Successfully push the following to server: ${resoibse}`);
+                        console.log(`Successfully push the following to server: ${response}`);
                     },
                     error: function () {
                         console.log("Failed to push the data to server");
